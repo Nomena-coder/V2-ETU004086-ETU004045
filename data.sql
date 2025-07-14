@@ -23,6 +23,7 @@ CREATE TABLE objet(
     nom_objet VARCHAR(50),
     id_categorie INT,
     id_membre INT,
+    img VARCHAR(100) DEFAULT 'default.jpg',
     FOREIGN KEY (id_membre) REFERENCES membre(id_membre),
     FOREIGN KEY (id_categorie) REFERENCES categorie_objet(id_categorie)
 
@@ -116,10 +117,10 @@ INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES
 (29, 2, '2025-07-09', '2025-07-19'),
 (35, 3, '2025-07-10', '2025-07-21');
 
-create or replace view v_membre_objet as select membre.*, id_categorie as o_idc, id_objet as o_ido, nom_objet from membre 
+create or replace view v_membre_objet as select membre.*, id_categorie as o_idc, objet.img as o_img,id_objet as o_ido, nom_objet from membre 
 join objet on membre.id_membre = objet.id_membre;
 
-create or replace view v_objet_categorie as select * from categorie_objet join v_membre_objet on o_idc= categorie_objet.id_categorie;
+create or replace view v_objet_categorie as select categorie_objet.*, v_membre_objet.* from categorie_objet join v_membre_objet on o_idc= categorie_objet.id_categorie;
 
 create or replace view v_objet_emprunt as select o.id_objet as o_ido, o.nom_objet, o.id_categorie o_idc, o.id_membre o_idm,
 e.id_emprunt, e.date_emprunt, e.date_retour from objet o join emprunt e on o.id_objet=e.id_objet;

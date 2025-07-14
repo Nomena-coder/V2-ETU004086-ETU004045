@@ -21,6 +21,9 @@
             <a href="modal.php?page=liste" class="navbar-brand ">
                 <h1>Imena</h1>
             </a>
+            <div class="ms-auto me-3">
+                <?php echo $page != 'index' && $page != 'create' ? 'Connecte en tant que <b>'.$_SESSION['user']['nom'] .'</b>' : '' ?>
+            </div>
         </nav>
     </header>
     <main>
