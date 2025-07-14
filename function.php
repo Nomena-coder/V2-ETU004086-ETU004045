@@ -96,14 +96,6 @@
         return $data != null ? 'Emprunt jusqu\'a '.$data['date_retour'] : 'dispo';
     }
 
-    function dispoEmprunt($idObjet, $jour){
-        $sql = "SELECT * FROM emprunt WHERE id_objet = %s AND date_retour > CURDATE()";
-        $sql = sprintf($sql, $idObjet);
-        $result = mysqli_query(dbconnect(), $sql);
-        $data = mysqli_fetch_assoc($result);
-        return $data != null ? 'Emprunt jusqu\'a '.$data['date_retour'] : 'dispo + '.$jour;
-    }
-
     function getInfoMembre($idMembre){
         $sql = "SELECT * FROM membre WHERE id_membre = '%s'";
         $sql = sprintf($sql, $idMembre);
